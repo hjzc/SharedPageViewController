@@ -45,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.maxNumberOfPages = 3;
+    self.maxNumberOfPages = 10;
     self.delegate = self;
     self.dataSource = self;
     self.selectedViewController = self.pages[0];
@@ -93,8 +93,11 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
 
 - (AnyViewController *)getController:(NSUInteger)pageNumber
 {
-    AnyViewController *vc = self.pages[pageNumber];
+    NSUInteger pageModulo = pageNumber % self.pages.count;
+    AnyViewController *vc = self.pages[pageModulo];
     vc.pageNumberLabel.text = @(pageNumber).stringValue;
+    vc.pageIndex = pageNumber;
+    
     return vc;
 }
 
