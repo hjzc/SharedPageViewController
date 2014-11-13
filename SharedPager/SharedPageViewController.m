@@ -48,7 +48,8 @@
     self.maxNumberOfPages = 3;
     self.delegate = self;
     self.dataSource = self;
-    [self setViewControllers:@[self.pages[0]]
+    self.selectedViewController = self.pages[0];
+    [self setViewControllers:@[self.selectedViewController]
                    direction:UIPageViewControllerNavigationDirectionForward
                     animated:NO
                   completion:^(BOOL finished) {
@@ -100,8 +101,8 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
        viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger next = self.currentPageIndex - 1;
-    if (next > self.maxNumberOfPages) {
+    NSUInteger next = self.currentPageIndex + 1;
+    if (next >= self.maxNumberOfPages) {
         return nil;
     }
     return [self getController:next];
