@@ -47,8 +47,8 @@
 		C0C01E001A1529EA00240BB8 /* SharedPagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharedPagerTests.m; sourceTree = "<group>"; };
 		C0C01E0D1A152AC400240BB8 /* AnyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyViewController.h; sourceTree = "<group>"; };
 		C0C01E0E1A152AC400240BB8 /* AnyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyViewController.m; sourceTree = "<group>"; };
-		C0F5BBEC1A1621A3007878CB /* SharedPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedPageViewController.h; sourceTree = "<group>"; };
-		C0F5BBED1A1621A3007878CB /* SharedPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedPageViewController.m; sourceTree = "<group>"; };
+		C0F5BBEC1A1621A3007878CB /* SharedPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedPageViewController.h; path = ../../Vendor/SharedPageViewController.h; sourceTree = "<group>"; };
+		C0F5BBED1A1621A3007878CB /* SharedPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedPageViewController.m; path = ../../Vendor/SharedPageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
