@@ -10,8 +10,6 @@
 #import "AnyViewController.h"
 
 @interface SharedPageViewController ()
-@property (nonatomic, strong) NSArray *pages;
-
 @property (nonatomic, strong) AnyViewController *pendingViewController;
 @property (nonatomic, strong) AnyViewController *selectedViewController;
 @property (nonatomic) NSUInteger currentPageIndex;

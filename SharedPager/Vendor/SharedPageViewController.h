@@ -12,4 +12,5 @@
 
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic) NSUInteger maxNumberOfPages;
+@property (nonatomic, strong) NSArray *pages;
 @end
