@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 dooZ. All rights reserved.
 //
 
+#import "ACCPageViewController.h"
 #import "SharedPageViewController.h"
 
 @interface SharedPageViewController ()
@@ -16,20 +17,34 @@
 
 @implementation SharedPageViewController
 
+- (void)setCurrentPageIndex:(NSUInteger)currentPageIndex
+{
+    UIPageViewControllerNavigationDirection direction = [self getDirection:currentPageIndex];
+    _currentPageIndex = currentPageIndex;
+    self.selectedViewController = [self getController:currentPageIndex];
+    [self setViewControllers:@[self.selectedViewController]
+                   direction:direction
+                    animated:YES
+                  completion:nil];
+}
+
+- (UIPageViewControllerNavigationDirection)getDirection:(NSUInteger)currentPageIndex
+{
+    UIPageViewControllerNavigationDirection direction;
+    if (currentPageIndex > _currentPageIndex) {
+        direction = UIPageViewControllerNavigationDirectionForward;
+    }else {
+        direction = UIPageViewControllerNavigationDirectionReverse;
+    }
+    return direction;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.delegate = self;
     self.dataSource = self;
-    self.selectedViewController = self.pages[self.currentPageIndex];
-    [self.pageSetupDelegate pageViewController:self
-                           setupViewController:self.selectedViewController
-                                     pageIndex:self.currentPageIndex];
-    [self setViewControllers:@[self.selectedViewController]
-                   direction:UIPageViewControllerNavigationDirectionForward
-                    animated:NO
-                  completion:nil];
-
+    self.currentPageIndex = 0;
 }
 
 #pragma mark - Count pages
@@ -52,6 +67,8 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
             self.currentPageIndex++;
         }
         self.selectedViewController = self.pendingViewController;
+        [self.pageCountDelegate pageViewController:self
+                              didChangeToPageIndex:self.currentPageIndex];
     }
 }
 
@@ -87,11 +104,15 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
     return [self getController:next];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)goToPageAtIndex:(NSUInteger)index
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.currentPageIndex = index;
 }
 
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    //TODO: Dispose of any resources that can be recreated.
+}
 @end

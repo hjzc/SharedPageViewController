@@ -16,6 +16,10 @@
 
 @end
 
+@protocol SharedPageCountDelegate <NSObject>
+- (void)pageViewController:(SharedPageViewController *)pageViewController didChangeToPageIndex:(NSUInteger)pageIndex;
+@end
+
 @protocol SharedPageSetupDelegate <NSObject>
 - (void)pageViewController:(SharedPageViewController *)pageViewController
        setupViewController:(UIViewController <SharedPageAble> *)viewController
@@ -25,6 +29,7 @@
 @interface SharedPageViewController : UIPageViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
 @property (nonatomic, weak) NSObject <SharedPageSetupDelegate> *pageSetupDelegate;
+@property (nonatomic, weak) NSObject <SharedPageCountDelegate> *pageCountDelegate;
 @property (nonatomic) NSUInteger maxNumberOfPages;
 
 /*
@@ -33,4 +38,5 @@
  */
 @property (nonatomic, strong) NSArray *pages;
 
+- (void)goToPageAtIndex:(NSUInteger)index;
 @end
