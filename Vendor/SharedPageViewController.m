@@ -7,7 +7,6 @@
 //
 
 #import "ACCPageViewController.h"
-#import "SharedPageViewController.h"
 
 @interface SharedPageViewController ()
 @property (nonatomic, strong) UIViewController <SharedPageAble> *pendingViewController;
@@ -22,10 +21,23 @@
     UIPageViewControllerNavigationDirection direction = [self getDirection:currentPageIndex];
     _currentPageIndex = currentPageIndex;
     self.selectedViewController = [self getController:currentPageIndex];
-    [self setViewControllers:@[self.selectedViewController]
+
+    __weak SharedPageViewController *weakSelf = self;
+    NSArray *viewControllers = @[self.selectedViewController];
+    [self setViewControllers:viewControllers
                    direction:direction
                     animated:YES
-                  completion:nil];
+                  completion:^(BOOL finished) {
+                   if (finished) {
+                       //http://stackoverflow.com/questions/14220289/removing-a-view-controller-from-uipageviewcontroller
+                       dispatch_async (dispatch_get_main_queue (), ^{
+                        [weakSelf setViewControllers:viewControllers
+                                           direction:direction
+                                            animated:NO
+                                          completion:NULL];// bug fix for uipageviewcontroller
+                       });
+                   }
+                  }];
 }
 
 - (UIPageViewControllerNavigationDirection)getDirection:(NSUInteger)currentPageIndex
@@ -33,7 +45,7 @@
     UIPageViewControllerNavigationDirection direction;
     if (currentPageIndex > _currentPageIndex) {
         direction = UIPageViewControllerNavigationDirectionForward;
-    }else {
+    } else {
         direction = UIPageViewControllerNavigationDirectionReverse;
     }
     return direction;
