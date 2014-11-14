@@ -21,13 +21,14 @@
     [super viewDidLoad];
     self.delegate = self;
     self.dataSource = self;
-    self.selectedViewController = self.pages[0];
+    self.selectedViewController = self.pages[self.currentPageIndex];
     [self setViewControllers:@[self.selectedViewController]
                    direction:UIPageViewControllerNavigationDirectionForward
                     animated:NO
-                  completion:^(BOOL finished) {
-                      //
-                  }];
+                  completion:nil];
+    [self.pageSetupDelegate pageViewController:self
+                           setupViewController:self.selectedViewController
+                                     pageIndex:self.currentPageIndex];
 }
 
 #pragma mark - Count pages
