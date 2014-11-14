@@ -28,7 +28,9 @@
 @property (nonatomic) NSUInteger maxNumberOfPages;
 
 /*
-* Array of 3 viewControllers that can be reused for data content. They should conform to <SharedPageAble>
+* Array of any number of reusable viewControllers that can be reused for data content.
+* They should conform to <SharedPageAble>
  */
 @property (nonatomic, strong) NSArray *pages;
+
 @end
