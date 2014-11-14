@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75FBD68801FC9F5295CF81EA /* AnyPageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FBDB84640A096EF9F1EA6C /* AnyPageContainer.m */; };
 		C0C01DE71A1529EA00240BB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01DE61A1529EA00240BB8 /* main.m */; };
 		C0C01DEA1A1529EA00240BB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01DE91A1529EA00240BB8 /* AppDelegate.m */; };
 		C0C01DED1A1529EA00240BB8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01DEC1A1529EA00240BB8 /* ViewController.m */; };
@@ -29,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		75FBD4DAC980A4977EF3434A /* AnyPageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyPageContainer.h; sourceTree = "<group>"; };
+		75FBDB84640A096EF9F1EA6C /* AnyPageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyPageContainer.m; sourceTree = "<group>"; };
 		C0C01DE11A1529EA00240BB8 /* SharedPager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharedPager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C01DE51A1529EA00240BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0C01DE61A1529EA00240BB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -98,6 +101,8 @@
 				C0C01DE41A1529EA00240BB8 /* Supporting Files */,
 				C0C01E0D1A152AC400240BB8 /* AnyViewController.h */,
 				C0C01E0E1A152AC400240BB8 /* AnyViewController.m */,
+				75FBDB84640A096EF9F1EA6C /* AnyPageContainer.m */,
+				75FBD4DAC980A4977EF3434A /* AnyPageContainer.h */,
 			);
 			path = SharedPager;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 				C0C01E0F1A152AC400240BB8 /* AnyViewController.m in Sources */,
 				C0C01DEA1A1529EA00240BB8 /* AppDelegate.m in Sources */,
 				C0C01DE71A1529EA00240BB8 /* main.m in Sources */,
+				75FBD68801FC9F5295CF81EA /* AnyPageContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

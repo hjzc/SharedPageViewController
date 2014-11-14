@@ -12,10 +12,10 @@
             </objects>
             <point key="canvasLocation" x="-249" y="146"/>
         </scene>
-        <!--View Controller-->
+        <!--Any Page Container-->
         <scene sceneID="IHh-wL-pGU">
             <objects>
-                <viewController id="7et-Rd-TLS" sceneMemberID="viewController">
+                <viewController id="7et-Rd-TLS" customClass="AnyPageContainer" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EzN-0x-FjS"/>
                         <viewControllerLayoutGuide type="bottom" id="qdF-ix-MMN"/>

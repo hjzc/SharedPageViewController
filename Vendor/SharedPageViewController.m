@@ -7,18 +7,45 @@
 //
 
 #import "SharedPageViewController.h"
+#import "AnyViewController.h"
 
 @interface SharedPageViewController ()
-@property (nonatomic, strong) UIViewController <SharedPageAble> *pendingViewController;
-@property (nonatomic, strong) UIViewController <SharedPageAble> *selectedViewController;
+@property (nonatomic, strong) NSArray *pages;
+
+@property (nonatomic, strong) AnyViewController *pendingViewController;
+@property (nonatomic, strong) AnyViewController *selectedViewController;
 @property (nonatomic) NSUInteger currentPageIndex;
 @end
 
 @implementation SharedPageViewController
 
+- (NSArray *)pages
+{
+    if (!_pages) {
+        _pages = @[[self vc:0], [self vc:1], [self vc:2]];
+    }
+    return _pages;
+}
+
+- (NSString *)identifier
+{
+    if (!_identifier) {
+        _identifier = @"AnyViewController";
+    }
+    return _identifier;
+}
+
+- (AnyViewController *)vc:(NSUInteger)index
+{
+    AnyViewController *vc1 = [self.storyboard instantiateViewControllerWithIdentifier:self.identifier];
+    vc1.pageIndex = index;
+    return vc1;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.maxNumberOfPages = 10;
     self.delegate = self;
     self.dataSource = self;
     self.selectedViewController = self.pages[0];
@@ -64,14 +91,13 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
     return [self getController:(NSUInteger) previous];
 }
 
-- (UIViewController <SharedPageAble> *)getController:(NSUInteger)pageIndex
+- (AnyViewController *)getController:(NSUInteger)pageNumber
 {
-    NSUInteger pageModulo = pageIndex % self.pages.count;
-    UIViewController <SharedPageAble> *vc = self.pages[pageModulo];
-    vc.pageIndex = pageIndex;
-    [self.pageSetupDelegate pageViewController:self
-                           setupViewController:vc
-                                     pageIndex:pageIndex];
+    NSUInteger pageModulo = pageNumber % self.pages.count;
+    AnyViewController *vc = self.pages[pageModulo];
+    vc.pageNumberLabel.text = @(pageNumber).stringValue;
+    vc.pageIndex = pageNumber;
+    
     return vc;
 }
 
