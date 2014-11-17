@@ -17,7 +17,10 @@
 @end
 
 @protocol SharedPageCountDelegate <NSObject>
+
+- (void)pageViewController:(SharedPageViewController *)pageViewController willChangeToPageIndex:(NSUInteger)index;
 - (void)pageViewController:(SharedPageViewController *)pageViewController didChangeToPageIndex:(NSUInteger)pageIndex;
+
 @end
 
 @protocol SharedPageSetupDelegate <NSObject>

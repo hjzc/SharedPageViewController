@@ -65,6 +65,9 @@
 willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
     self.pendingViewController = pendingViewControllers[0];
+    NSUInteger index = [self getPageIndex];
+    [self.pageCountDelegate pageViewController:self
+                         willChangeToPageIndex:index];
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController
@@ -73,15 +76,26 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
        transitionCompleted:(BOOL)completed
 {
     if (completed) {
-        if (self.pendingViewController.pageIndex < self.selectedViewController.pageIndex) {
-            self.currentPageIndex--;
-        } else {
-            self.currentPageIndex++;
-        }
+        NSUInteger index = [self getPageIndex];
+        self.currentPageIndex= index;
         self.selectedViewController = self.pendingViewController;
-        [self.pageCountDelegate pageViewController:self
-                              didChangeToPageIndex:self.currentPageIndex];
+
+    } else {
+        self.pendingViewController = nil;
     }
+    [self.pageCountDelegate pageViewController:self
+                          didChangeToPageIndex:self.currentPageIndex];
+}
+
+- (NSUInteger)getPageIndex
+{
+    NSUInteger index = self.currentPageIndex;
+    if (self.pendingViewController.pageIndex < self.selectedViewController.pageIndex) {
+            index--;
+        } else {
+            index++;
+        }
+    return index;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
