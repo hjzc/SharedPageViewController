@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		75FBD68801FC9F5295CF81EA /* AnyPageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FBDB84640A096EF9F1EA6C /* AnyPageContainer.m */; };
+		C0A1FA8B1A1DD6E700006802 /* SharedPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A1FA8A1A1DD6E700006802 /* SharedPageViewController.m */; };
 		C0C01DE71A1529EA00240BB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01DE61A1529EA00240BB8 /* main.m */; };
 		C0C01DEA1A1529EA00240BB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01DE91A1529EA00240BB8 /* AppDelegate.m */; };
 		C0C01DED1A1529EA00240BB8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01DEC1A1529EA00240BB8 /* ViewController.m */; };
@@ -16,7 +17,6 @@
 		C0C01DF51A1529EA00240BB8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0C01DF31A1529EA00240BB8 /* LaunchScreen.xib */; };
 		C0C01E011A1529EA00240BB8 /* SharedPagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01E001A1529EA00240BB8 /* SharedPagerTests.m */; };
 		C0C01E0F1A152AC400240BB8 /* AnyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C01E0E1A152AC400240BB8 /* AnyViewController.m */; };
-		C0F5BBEE1A1621A3007878CB /* SharedPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0F5BBED1A1621A3007878CB /* SharedPageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +32,8 @@
 /* Begin PBXFileReference section */
 		75FBD4DAC980A4977EF3434A /* AnyPageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyPageContainer.h; sourceTree = "<group>"; };
 		75FBDB84640A096EF9F1EA6C /* AnyPageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyPageContainer.m; sourceTree = "<group>"; };
+		C0A1FA891A1DD6E700006802 /* SharedPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedPageViewController.h; sourceTree = "<group>"; };
+		C0A1FA8A1A1DD6E700006802 /* SharedPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedPageViewController.m; sourceTree = "<group>"; };
 		C0C01DE11A1529EA00240BB8 /* SharedPager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharedPager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C01DE51A1529EA00240BB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0C01DE61A1529EA00240BB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,8 +49,6 @@
 		C0C01E001A1529EA00240BB8 /* SharedPagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharedPagerTests.m; sourceTree = "<group>"; };
 		C0C01E0D1A152AC400240BB8 /* AnyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyViewController.h; sourceTree = "<group>"; };
 		C0C01E0E1A152AC400240BB8 /* AnyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyViewController.m; sourceTree = "<group>"; };
-		C0F5BBEC1A1621A3007878CB /* SharedPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedPageViewController.h; path = ../../Vendor/SharedPageViewController.h; sourceTree = "<group>"; };
-		C0F5BBED1A1621A3007878CB /* SharedPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedPageViewController.m; path = ../../Vendor/SharedPageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +69,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C0A1FA881A1DD6E700006802 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				C0A1FA891A1DD6E700006802 /* SharedPageViewController.h */,
+				C0A1FA8A1A1DD6E700006802 /* SharedPageViewController.m */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		C0C01DD81A1529EA00240BB8 = {
 			isa = PBXGroup;
 			children = (
 				C0C01DE31A1529EA00240BB8 /* SharedPager */,
-				C0F5BBEB1A1621A3007878CB /* Vendor */,
+				C0A1FA881A1DD6E700006802 /* Vendor */,
 				C0C01DFD1A1529EA00240BB8 /* SharedPagerTests */,
 				C0C01DE21A1529EA00240BB8 /* Products */,
 			);
@@ -131,16 +140,6 @@
 				C0C01DFF1A1529EA00240BB8 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C0F5BBEB1A1621A3007878CB /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				C0F5BBEC1A1621A3007878CB /* SharedPageViewController.h */,
-				C0F5BBED1A1621A3007878CB /* SharedPageViewController.m */,
-			);
-			name = Vendor;
-			path = SharedPager/Vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,8 +243,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0C01DED1A1529EA00240BB8 /* ViewController.m in Sources */,
-				C0F5BBEE1A1621A3007878CB /* SharedPageViewController.m in Sources */,
 				C0C01E0F1A152AC400240BB8 /* AnyViewController.m in Sources */,
+				C0A1FA8B1A1DD6E700006802 /* SharedPageViewController.m in Sources */,
 				C0C01DEA1A1529EA00240BB8 /* AppDelegate.m in Sources */,
 				C0C01DE71A1529EA00240BB8 /* main.m in Sources */,
 				75FBD68801FC9F5295CF81EA /* AnyPageContainer.m in Sources */,

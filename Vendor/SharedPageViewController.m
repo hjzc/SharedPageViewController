@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 dooZ. All rights reserved.
 //
 
-#import "ACCPageViewController.h"
+#import "SharedPageViewController.h"
 
 @interface SharedPageViewController ()
 @property (nonatomic, strong) UIViewController <SharedPageAble> *pendingViewController;
@@ -66,8 +66,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
     self.pendingViewController = pendingViewControllers[0];
     NSUInteger index = [self getPageIndex];
-    [self.pageCountDelegate pageViewController:self
-                         willChangeToPageIndex:index];
+    if ([(self.pageCountDelegate) respondsToSelector:@selector (pageViewController:willChangeToPageIndex:)]) {
+        [(self.pageCountDelegate) pageViewController:self
+                               willChangeToPageIndex:index];
+    }
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController
@@ -75,11 +77,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
    previousViewControllers:(NSArray *)previousViewControllers
        transitionCompleted:(BOOL)completed
 {
-    if (completed) {
+    if (completed && finished) {
         NSUInteger index = [self getPageIndex];
-        self.currentPageIndex= index;
+        _currentPageIndex = index;
         self.selectedViewController = self.pendingViewController;
-
     } else {
         self.pendingViewController = nil;
     }
@@ -91,10 +92,13 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
     NSUInteger index = self.currentPageIndex;
     if (self.pendingViewController.pageIndex < self.selectedViewController.pageIndex) {
-            index--;
-        } else {
-            index++;
-        }
+        index--;
+    } else {
+        index++;
+    }
+    if (index >= self.maxNumberOfPages) {
+        index = self.maxNumberOfPages - 1;
+    }
     return index;
 }
 
