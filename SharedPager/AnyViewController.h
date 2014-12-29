@@ -10,6 +10,9 @@
 #import "SharedPageViewController.h"
 
 @interface AnyViewController : UIViewController  <SharedPageAble>
+
+//ModelItems are passed by the pageViewController. Not needed in this simple case.
+@property (nonatomic, strong) NSArray *modelItems;
 @property (strong, nonatomic) IBOutlet UILabel *pageNumberLabel;
 @property NSUInteger pageIndex;
 
