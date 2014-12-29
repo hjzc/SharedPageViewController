@@ -70,16 +70,21 @@
     [super viewDidLoad];
     self.delegate = self;
     self.dataSource = self;
-    self.currentPageIndex = 0;
+    [self updateControllers];
 }
 
 #pragma mark - Count pages
 
-- (void)     pageViewController:(UIPageViewController *)pageViewController
+- (void)pageViewController:(UIPageViewController *)pageViewController
 willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
     self.pendingViewController = pendingViewControllers[0];
     NSUInteger index = [self getPageIndex];
+    //Needed to prevent reloading pages to often when tapping the pages very heavily.
+    self.view.userInteractionEnabled = NO;
+    //Re-enable userInteraction after a fixed period of time (safeguard to ensure it does not stay disabled)
+    [self resetUserInteractionTimer];
+    self.interactionTimer = [NSTimer scheduledTimerWithTimeInterval:2.f target:self selector:@selector(resetUserInteraction:) userInfo:pageViewController repeats:NO];
     if ([(self.pageCountDelegate) respondsToSelector:@selector (pageViewController:willChangeToPageIndex:)]) {
         [(self.pageCountDelegate) pageViewController:self
                                willChangeToPageIndex:index];
@@ -98,8 +103,22 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
     } else {
         self.pendingViewController = nil;
     }
+    [self resetUserInteractionTimer];
+    self.view.userInteractionEnabled = YES;
     [self.pageCountDelegate pageViewController:self
                           didChangeToPageIndex:self.currentPageIndex];
+}
+
+- (void)resetUserInteraction:(NSTimer *)timer
+{
+    self.view.userInteractionEnabled = YES;
+    [self resetUserInteractionTimer];
+}
+
+- (void)resetUserInteractionTimer
+{
+    [self.interactionTimer invalidate];
+    self.interactionTimer = nil;
 }
 
 - (NSUInteger)getPageIndex
