@@ -13,6 +13,14 @@
 @protocol SharedPageAble <NSObject>
 
 @property NSUInteger pageIndex;
+@property (nonatomic, strong) NSArray *modelItems;
+
+- (void)reloadData;
+
+@optional
+- (void)scheduleDataReload;
+- (void)cancelScheduledDataReload;
+- (void)reloadDataIfNeeded;
 
 @end
 
@@ -44,4 +52,13 @@
 @property (nonatomic, strong) NSArray *pages;
 
 - (void)goToPageAtIndex:(NSUInteger)index;
+
+- (void)passModelItemsToAllPages:(NSArray *)modelItems;
+
+- (UIViewController <SharedPageAble> *)selectedViewController;
+
+- (void)reloadScreensOfAllPages;
+- (void)scheduleDataReloadOfAllPages;
+- (void)cancelScheduledDataReloadOfAllPages;
+- (void)reloadDataOfAllPagesIfNeeded;
 @end

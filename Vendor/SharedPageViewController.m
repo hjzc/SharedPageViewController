@@ -9,36 +9,50 @@
 #import "SharedPageViewController.h"
 
 @interface SharedPageViewController ()
+
 @property (nonatomic, strong) UIViewController <SharedPageAble> *pendingViewController;
 @property (nonatomic, strong) UIViewController <SharedPageAble> *selectedViewController;
-@property (nonatomic) NSUInteger currentPageIndex;
+@property (nonatomic, assign) NSUInteger currentPageIndex;
+@property (nonatomic, strong) NSTimer *interactionTimer;
+@property (nonatomic, assign) UIPageViewControllerNavigationDirection direction;
+
 @end
 
 @implementation SharedPageViewController
 
 - (void)setCurrentPageIndex:(NSUInteger)currentPageIndex
 {
-    UIPageViewControllerNavigationDirection direction = [self getDirection:currentPageIndex];
+    self.direction = [self getDirection:currentPageIndex];
     _currentPageIndex = currentPageIndex;
-    self.selectedViewController = [self getController:currentPageIndex];
+    [self updateControllers];
+}
 
+- (void)updateControllers
+{
+    if (self.currentPageIndex >= self.maxNumberOfPages) {
+        return;
+    }
+
+    self.selectedViewController = [self getController:self.currentPageIndex];
+    
     __weak SharedPageViewController *weakSelf = self;
     NSArray *viewControllers = @[self.selectedViewController];
     [self setViewControllers:viewControllers
-                   direction:direction
+                   direction:self.direction
                     animated:YES
                   completion:^(BOOL finished) {
-                   if (finished) {
-                       //http://stackoverflow.com/questions/14220289/removing-a-view-controller-from-uipageviewcontroller
-                       dispatch_async (dispatch_get_main_queue (), ^{
-                        [weakSelf setViewControllers:viewControllers
-                                           direction:direction
-                                            animated:NO
-                                          completion:NULL];// bug fix for uipageviewcontroller
-                       });
-                   }
+                      if (finished) {
+                          //http://stackoverflow.com/questions/14220289/removing-a-view-controller-from-uipageviewcontroller
+                          dispatch_async (dispatch_get_main_queue (), ^{
+                              [weakSelf setViewControllers:viewControllers
+                                                 direction:weakSelf.direction
+                                                  animated:NO
+                                                completion:NULL];// bug fix for uipageviewcontroller
+                          });
+                      }
                   }];
 }
+
 
 - (UIPageViewControllerNavigationDirection)getDirection:(NSUInteger)currentPageIndex
 {
@@ -139,10 +153,45 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers
     self.currentPageIndex = index;
 }
 
-
-- (void)didReceiveMemoryWarning
+- (void)passModelItemsToAllPages:(NSArray *)modelItems
 {
-    [super didReceiveMemoryWarning];
-    //TODO: Dispose of any resources that can be recreated.
+    for (id <SharedPageAble> page in self.pages){
+        page.modelItems = modelItems;
+        [page reloadData];
+    }
+}
+
+- (void)reloadScreensOfAllPages
+{
+    for (id <SharedPageAble> page in self.pages){
+        [page reloadData];
+    }
+}
+
+- (void)scheduleDataReloadOfAllPages
+{
+     for (NSObject <SharedPageAble> *vc in self.pages){
+         if ([vc respondsToSelector:@selector (scheduleDataReload)]) {
+             [vc scheduleDataReload];
+         }
+     }
+}
+
+- (void)cancelScheduledDataReloadOfAllPages
+{
+    for (NSObject <SharedPageAble> *vc in self.pages){
+        if ([vc respondsToSelector:@selector (cancelScheduledDataReload)]) {
+            [vc cancelScheduledDataReload];
+        }
+    }
+}
+
+- (void)reloadDataOfAllPagesIfNeeded
+{
+    for (NSObject <SharedPageAble> *vc in self.pages){
+        if ([vc respondsToSelector:@selector (reloadDataIfNeeded)]) {
+            [vc reloadDataIfNeeded];
+        }
+    }
 }
 @end
