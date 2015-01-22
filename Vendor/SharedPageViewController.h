@@ -43,22 +43,58 @@
 
 @property (nonatomic, weak) NSObject <SharedPageSetupDelegate> *pageSetupDelegate;
 @property (nonatomic, weak) NSObject <SharedPageCountDelegate> *pageCountDelegate;
-@property (nonatomic) NSUInteger maxNumberOfPages;
+
+@property (nonatomic, strong) NSArray *pageItems;
+
+/**
+ * By calling this method for every filterItem a viewController is created.
+ */
+- (void)cacheAllViewControllers;
 
 /*
-* Array of any number of reusable viewControllers that can be reused for data content.
-* They should conform to <SharedPageAble>
+ * Subclasses must override this method to create a viewcontroller for a specific page.
  */
-@property (nonatomic, strong) NSArray *pages;
 
-- (void)goToPageAtIndex:(NSUInteger)index;
+- (UIViewController <SharedPageAble> *)createViewControllerAtPageIndex:(NSUInteger)index;
 
+//Managing reusable pages
+/*
+* Reusable pages are pages that have similar view layout but can have different content.
+* You can set as many as you want but a minimum is 2.
+* You set the maxNumberOfPages to be the number of pages you want to page too.
+* maxNumberOfPages can be more the numberOfReusablePages.
+*
+ */
+- (void)addReusablePages:(NSArray *)reusablePages;
+
+- (void)removeReusablePageAtIndex:(NSUInteger)reusablePageIndex;
+- (void)replaceAllReusablePagesWithReusablePages:(NSArray *)reusablePages;
+- (NSUInteger)numberOfReusablePages;
+
+
+//Dealing with page numbers
+/*
+* The maxNumberOfPages defines the amount of pages available.
+* If this was a book it would be the last page number of the book.
+ */
+@property (nonatomic) NSUInteger maxNumberOfPages;
+
+- (void)goToPageAtIndex:(NSUInteger)index animated:(BOOL)animated;
+
+- (UIViewController <SharedPageAble> *)visibleViewController;
+
+
+/*
+     * The content on the pages can come from a modelItem.
+     * Methods below handle reloading of this content and setting modelItems.
+ */
 - (void)passModelItemsToAllPages:(NSArray *)modelItems;
-
-- (UIViewController <SharedPageAble> *)selectedViewController;
 
 - (void)reloadScreensOfAllPages;
 - (void)scheduleDataReloadOfAllPages;
 - (void)cancelScheduledDataReloadOfAllPages;
 - (void)reloadDataOfAllPagesIfNeeded;
+
+- (void)resetupReusablePages;
+
 @end

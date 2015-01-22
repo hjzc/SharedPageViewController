@@ -22,7 +22,7 @@
 {
     SharedPageViewController *pageViewController = segue.destinationViewController;
     pageViewController.maxNumberOfPages = 10;
-    pageViewController.pages = @[[self vc:0], [self vc:1], [self vc:2]];
+    [pageViewController addReusablePages:@[[self vc:0], [self vc:1], [self vc:2]]];
     pageViewController.pageSetupDelegate = self;
 }
 
